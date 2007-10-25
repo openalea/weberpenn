@@ -1,6 +1,5 @@
 import random     
 import os
-os.chdir(r'D:\pradal\devlp\WeberPenn')
 
 from tree_client import *
 import tree_client
@@ -20,7 +19,7 @@ tree_client.Weeping_Willow() ]
 p1,p2,p3,p4= p
 
 def f( param, section=section, position= Vector3(), scene= Scene() ):
-    param.leaves= 0
+    #param.leaves= 0
     client= tree_client.Weber_Laws(param)
     server= tree_server.TreeServer(client)
     server.run()
@@ -29,16 +28,12 @@ def f( param, section=section, position= Vector3(), scene= Scene() ):
     scene= geom.scene('axis', scene)
     return scene
 
-"""
 scenes= []
 for param in p:
     param.leaves= 0
     param.order-= 1
     s= f(param, section)
     scenes.append(s)
-"""
-p= Shrub()
-scene= Scene()
 
 """
 seed=range(1,10)
@@ -67,6 +62,7 @@ def save_shrub(seeds):
         s.save(name)
         print "File saved %s"%name
 
+"""
 """
 ##############################################
 def Shrub():
@@ -98,6 +94,8 @@ def Shrub():
                           base_split, n_length,
                           n_seg_split, n_split_angle,n_down_angle,
                           n_curve, n_rotate, branches, leaves, leaf_scale, leaf_scale_x)
+p= Shrub()
+scene= Scene()
 
 
 def foug():
@@ -247,3 +245,5 @@ for i in range(4):
     pos= Vector3(20*x,20*y,0)
     random.seed(seeds[i])
     scene=f(p1,section,pos,scene)
+
+"""

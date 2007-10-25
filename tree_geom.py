@@ -81,8 +81,11 @@ class GeomEngine(object):
         for order in range(max_order):
             self.axes( order, view)
 
-        if server.has_leaf() and view not in ['point'] :
-            self.leaves()
+        if server.has_leaf():
+            if view not in ['point'] :
+                self.leaves()
+        else:
+            self.axes(max_order, view)
 
         map(lambda x: scene.add(x), self._shapes)
         return scene

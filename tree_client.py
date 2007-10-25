@@ -45,7 +45,7 @@ class Tree(object):
                             "offset" : {},
                             "length" : {},
                             "offset_length":{},
-                            "transform":{}} 
+                            "transform":{}}
 
         self._order_axes= {}
         self.leaves= []
@@ -97,14 +97,14 @@ class Axis(object):
         """
         
         axis_id= tree.axis_id()
-        if self.parent != tree.root:
-            t= tree._properties["transform"][self.parent]
-            t= Matrix3(t)*Matrix3(self.transform)
-            t= Matrix4(t)
-            t[0,3]= self.transform[0,3]
-            t[1,3]= self.transform[1,3]
-            t[2,3]= self.transform[2,3]
-            self.transform= t
+        #if self.parent != tree.root:
+        #    t= tree._properties["transform"][self.parent]
+        #    t= Matrix3(t)*Matrix3(self.transform)
+        #    t= Matrix4(t)
+        #    t[0,3]= self.transform[0,3]
+        #    t[1,3]= self.transform[1,3]
+        #    t[2,3]= self.transform[2,3]
+        #    self.transform= t
 
         self.compute_polyline()
 
@@ -150,7 +150,7 @@ class Axis(object):
         assert len(self.curvature) == len(self.nodes)-2
         
         for i in range( 1, len(self.nodes)-1 ):
-            p1p2= rotate_X(p1p2,self.curvature[i-1])
+            p1p2= rotate_Y(p1p2,self.curvature[i-1])
             pt= pt+ p1p2*self.length[i]
             poly.append(pt)
             
@@ -252,8 +252,8 @@ class Weber_Penn(object):
         if not len(self.stack):
             self.stack= []
 
-        if not self.stack:
-            self.max_order= 0
+        #if not self.stack:
+        #    self.max_order= 0
         
     
     def create_stems(self, order):
@@ -284,6 +284,8 @@ class Weber_Penn(object):
 
     def create_leaves(self):
 
+        if self.max_order == 0:
+            return
         leaves= []
         branches= self.tree._order_axes[self.max_order-1]
         
@@ -310,7 +312,7 @@ class Weber_Laws( Weber_Penn ):
 
     def nb_trunk_nodes(self):
         nb_axes= self.param.n_branches[0]
-        return nb_axes+1
+        return nb_axes+2
 
     def get_trunk(self,nb_nodes):
 
@@ -325,8 +327,8 @@ class Weber_Laws( Weber_Penn ):
 
     def nb_axis_nodes( self, order, branching ):
         
-        if order > 2:
-            stem_max= 2
+        if order >= 3:
+            stem_max= 4
         else:
             stem_max= self.param.n_branches[order]
         return max(stem_max,2)
@@ -356,8 +358,7 @@ class Weber_Laws( Weber_Penn ):
     def get_branches( self, order, nb_nodes, branching= None ):
 
         assert nb_nodes > 0
-        m= Markov(0.85,0.95)
-        b= [m() for i in xrange(nb_nodes)]
+        b= [1]*nb_nodes
         #b= [ random.randint(0,1) for i in range(nb_nodes) ]
         b[0]= 0
         b [-1]= 0
@@ -365,7 +366,7 @@ class Weber_Laws( Weber_Penn ):
         return b
 
     def get_curvature( self, order, nb_nodes, branching= None ):
-        curve, curve_back, curveV= self.param.n_curve[order][1:]
+        curve, curveV, curve_back = self.param.n_curve[order][1:]
         if curve_back == 0:
             return [value((curve,curveV))/nb_nodes \
                     for i in range(nb_nodes-2)]
@@ -437,11 +438,12 @@ class Weber_Laws( Weber_Penn ):
 
         pid= branching.axis_id
         poly= self.tree._properties["polyline"][pid]
+        t = Matrix3(self.tree._properties["transform"][pid])
         offset=branching.offset
 
-        down= self.param.n_down_angle[order-1]
+        down= self.param.n_down_angle[order]
         down_angle= 0
-
+        
         if down[1] > 0:
             down_angle= value(down)
         else:
@@ -454,6 +456,7 @@ class Weber_Laws( Weber_Penn ):
             downV= down[1]* shape_ratio(0,1-2*shape_ratio(0,ratio))
             down_angle= value( (down[0], downV) )
 
+
         rotate= self.param.n_rotate[order-1]
 
         #todo
@@ -463,18 +466,43 @@ class Weber_Laws( Weber_Penn ):
         z= poly[offset]-poly[offset-1]
         z.normalize()
         
-        #r_rot= axisRotation(z, radians(self.rotate))
-        #my_x= z^Vector3(1,0,0)
-        #r_down= axisRotation(Vector3(1,0,0),radians(angle))
+        y = t* Vector3(0,1,0)
+        x = t* Vector3(1,0,0)
+        x.normalize()
+        y.normalize()
+        
+        r_rot= axisRotation(z, radians(self.rotate[order]))
+        r_down= axisRotation(y,radians(down_angle))
+        new_z = r_rot * r_down * z
+        new_y = r_rot * y
+        new_x = new_y ^new_z
+        transfo = Matrix4(BaseOrientation(new_x, new_y).getMatrix3())
 
-        a,e,r= radians(self.rotate[order]),  radians(down_angle),angle(Vector3(0,0,1),z)
-        euler= eulerRotationZYX(Vector3(a,e,r))
+        #transfo = Matrix4(r_rot*r_down*t)
+        #x = t * Vector3(1,0,0)
+        #r_rot = axisRotation(z, radians(self.rotate[order]))
+        #r_down = axisRotation(z^x, radians(down_angle))
+        #transfo = Matrix4(r_rot * r_down)
+
+        # FIXME BIG BUG
+        #euler = r_rot * r_down
+        
+        #z_old = t * Vector3(0,0,1)
+        #y_old = t * Vector3(0,1,0)
+        #z_rot = axisRotation(y_old, angle(z_old, z))
+        #x = z_rot * t * Vector3(1,0,0)
+        #y = y_old 
+        #x.normalize()
+        #y.normalize()
+        #t = BaseOrientation(x,y).getMatrix3()
+        #a,e,r= radians(self.rotate[order]),  radians(down_angle), 0
+        #euler= eulerRotationZYX(Vector3(a,e,r))
+        #transfo= Matrix4(euler*t)
         #print degrees(a),degrees(e),degrees(r)
 
         #transfo= Transform4( Matrix4(  euler ) )
         #transfo.translate(poly[offset])
 
-        transfo= Matrix4(euler)
         x,y,z= poly[offset]
         transfo[0,3]= x
         transfo[1,3]= y
@@ -563,6 +591,27 @@ class Weber_Laws( Weber_Penn ):
             
         return leaves
 
+##############################################################################
+
+class Markov_Laws( Weber_Laws):
+    """
+    Ramification is build form a first order Markov chain rather 
+    than from fixed parameters.
+    """
+    def __init__(self, param, p0 = 0.85, p1 = 0.95):
+        Weber_Laws.__init__(self, param)
+        self.p0 = p0
+        self.p1 = p1
+        
+    def get_branches( self, order, nb_nodes, branching= None ):
+
+        assert nb_nodes > 0
+        m= Markov(self.p0,self.p1)
+        b= [m() for i in xrange(nb_nodes)]
+        b[0]= 0
+        b [-1]= 0
+        
+        return b
 
 ##############################################################################
 # Utility functions
@@ -615,6 +664,11 @@ def rotate_X( v, angle ):
     mat= PlantGL.axisRotation(Vector3(1,0,0),radians(angle))
     return mat * v
 
+def rotate_Y( v, angle ):
+    " Rotate a vector V around the x axis."
+    mat= PlantGL.axisRotation(Vector3(0,1,0),radians(angle))
+    return mat * v
+
 def value(v):
     return v[0]+uniform(-v[1],v[1])
 
@@ -637,10 +691,11 @@ def shape_ratio( envelop_type, ratio ):
         return 0.5+0.5*ratio
     # Flame
     elif envelop_type == 5:
+        l = 0.01
         if ratio < 0.7:
-            return ratio/0.7
+            return ratio/0.7+l
         else:
-            return (1.-ratio)/0.3
+            return (1.-ratio)/0.3+l
     # Inverse Conical
     elif envelop_type == 6:
         return 1.-0.8*ratio
@@ -706,7 +761,7 @@ def Quaking_Aspen():
     n_length= [(1,0),(0.3,0),(0.6,0),(0,0) ]
     n_seg_split= []
     n_split_angle= []
-    n_down_angle= [(60,-50),(45,10),(45,10)]
+    n_down_angle= [(0,0),(60,-50),(45,10),(45,10)]
     n_curve= [(3,0,0,20),(5,-40,0,50),(3,-40,0,75),(1,0,0,0)]
     n_rotate=[(140,0),(140,0),(77,0)]
     branches=[50,30,10]
@@ -735,7 +790,7 @@ def Black_Tupelo():
     n_length= [(1,0),(0.3,0.05),(0.6,0.1),(0.4,0) ]
     n_seg_split= []
     n_split_angle= []
-    n_down_angle= [(60,-40),(30,10),(45,10)]
+    n_down_angle= [(0,0),(60,-40),(30,10),(45,10)]
     n_curve= [(10,0,0,40),(10,0,0,90),(10,-10,0,150),(1,0,0,0)]
     n_rotate=[(140,0),(140,0),(140,0)]
     branches=[50,25,12]
@@ -764,8 +819,8 @@ def Weeping_Willow():
     n_length= [(0.8,0),(0.5,0.1),(1.5,0),(0.1,0) ]
     n_seg_split= [0.1,0.1,0.2,0]
     n_split_angle= [(3,0),(30,10),(45,20),(0,0)]
-    n_down_angle= [(20,10),(30,10),(20,10)]
-    n_curve= [(8,0,20,120),(16,40,80,90),(12,0,0,0),(1,0,0,0)]
+    n_down_angle= [(0,0),(20,10),(30,10),(20,10)]
+    n_curve= [(8,0,20,120),(10,40,80,90),(6,0,0,0),(1,0,0,0)]
     n_rotate=[(-120,30),(-120,30),(140,0)]
     branches=[25,10,300]
     leaves= 15
@@ -793,7 +848,7 @@ def Black_Oak():
     n_length= [(1,0),(0.8,0.1),(0.2,0.05),(0.4,0) ]
     n_seg_split= [0.4,0.2,0.1,0]
     n_split_angle= [(10,0),(10,10),(10,10),(0,0)]
-    n_down_angle= [(30,-30),(45,10),(45,10)]
+    n_down_angle= [(0,0),(30,-30),(45,10),(45,10)]
     n_curve= [(8,0,0,90),(10,40,-70,150),(3,0,0,-30),(1,0,0,0)]
     n_rotate=[(80,0),(140,0),(140,0)]
     branches=[40,120,0]
@@ -808,3 +863,4 @@ def Black_Oak():
                           n_seg_split, n_split_angle,n_down_angle,
                           n_curve, n_rotate, branches, leaves, leaf_scale, leaf_scale_x,
                           rotate)
+
