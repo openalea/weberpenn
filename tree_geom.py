@@ -42,7 +42,7 @@ def bezier_leaf():
             pt.w=1
             matrix.__setitem__(i,j,pt)
     
-    leaf= pgl.BezierPatch(matrix,10,10)
+    leaf= pgl.BezierPatch(matrix,4,4)
 
     leaf.name='leaf'
     return leaf
@@ -155,12 +155,12 @@ class GeomEngine(object):
 
         elif scale == 'axis' or scale == 'point':
             n= len(p)
+            taper = 0.9
             if n > 1:
-                step=radius*(98/100.)/float(n)
+                step=taper*(98/100.)/float(n)
             else:
                 return []
-            
-            r= [ Vector2(radius-i*step,radius-i*step) for i in range(n) ]
+            r= [ Vector2(radius*(1.-i*step),radius*(1.-i*step)) for i in range(n) ]
             sweep= Extrusion( polyline, self.section, Point2Array(r) )
             sweep= Translated(self.position, sweep)
 
@@ -176,13 +176,13 @@ class GeomEngine(object):
             sweeps= []
 
             n= len(polyline)
+            taper = 0.9
             if n > 1:
-                step=radius/float(n)
+                step=taper/float(n)
             else:
                 return []
 
-            r= [ Vector2(radius-i*step,radius-i*step) for i in range(n) ]
-            r= [Vector2(radius,radius) for i in range(n) ]
+            r= [ Vector2(radius*(1.-i*step),radius*(1.-i*step)) for i in range(n) ]
 
             for i in range(n-1):
                 p1, p2= polyline[i]+self.position, polyline[i+1]+self.position

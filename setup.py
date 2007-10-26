@@ -9,7 +9,7 @@ namespace = 'openalea'
 if __name__ == '__main__':
     
     setup(name='vplants.weberpenn',
-          version='0.1',
+          version='0.1.2',
           author='C. Pradal',
           description='Implementation of the tree model published by Weber and Penn',
           url='',
@@ -19,9 +19,10 @@ if __name__ == '__main__':
           create_namespaces=True,
 
           # Packages
-          packages=['openalea.weberpenn'],
+          packages=['openalea.weberpenn','openalea.weberpenn.wralea'],
           package_dir={'openalea.weberpenn' : '',
-                       '' : 'build/lib', # hack to use develop command
+                       'openalea.weberpenn.wralea' : 'wralea',
+                       #'' : 'build/lib', # hack to use develop command
                        },
           
           # Add package platform libraries if any

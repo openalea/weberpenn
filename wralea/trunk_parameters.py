@@ -125,6 +125,12 @@ def tree_parameters(global_params, order0,  order1,  order2,  order3 ):
     base_size = gp['base_size']
     scale = (gp['scale'],  gp['scale_variance'])
     order = gp['order']
+    leaves = gp['leaves']
+    if order >= 4:
+        if not leaves:
+            order = 3
+        else:
+            order = 4
     if order == 3 and order3 is None:
         order=2
     if order == 2 and order2 is None:
@@ -137,7 +143,6 @@ def tree_parameters(global_params, order0,  order1,  order2,  order3 ):
     lobes = (gp['lobes'],  gp['lobes_variance'])
     flare = gp['flare']
     base_split = gp['base_split']
-    leaves = gp['leaves']
     leaf_scale = gp['leaf_scale']
     leaf_scale_x = gp['leaf_scale_x']
     rotate = [0]*(order+1)

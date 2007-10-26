@@ -427,8 +427,8 @@ class Weber_Laws( Weber_Penn ):
             ratio_power= self.param.ratio_power
 
             length= self.tree._properties["offset_length"][pid][offset]
-            
-            radius= parent_radius * pow(1-length/parent_len,ratio_power)
+            taper = 0.9
+            radius= parent_radius * pow(1-taper*length/parent_len,ratio_power)
 
         return radius
 
