@@ -40,7 +40,7 @@ def bezier_leaf():
         for j,pt in enumerate(row):
             pt= pt*9
             pt.w=1
-            matrix.__setitem__(i,j,pt)
+            matrix[i,j] = pt
     
     leaf= pgl.BezierPatch(matrix,4,4)
 
