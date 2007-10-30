@@ -503,10 +503,10 @@ class Weber_Laws( Weber_Penn ):
         #transfo= Transform4( Matrix4(  euler ) )
         #transfo.translate(poly[offset])
 
-        x,y,z= poly[offset]
-        transfo[0,3]= x
-        transfo[1,3]= y
-        transfo[2,3]= z
+        v = poly[offset]
+        transfo[0,3]= v.x
+        transfo[1,3]= v.y
+        transfo[2,3]= v.z
         return transfo
 
     def nb_leaves(self, axis_id):
