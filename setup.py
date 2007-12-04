@@ -31,6 +31,12 @@ if __name__ == '__main__':
           # Dependencies
           install_requires = ['PlantGL'],
           dependency_links = ['http://openalea.gforge.inria.fr/pi'],
+
+          # entry_points
+          entry_points = {
+            "wralea": ["weberpenn = openalea.weberpenn.wralea",]
+            },
+
           )
 
 
