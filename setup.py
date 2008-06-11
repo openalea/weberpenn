@@ -24,9 +24,9 @@ if __name__ == '__main__':
                     'openalea.weberpenn.demo'],
 
                        
-          package_dir={'openalea.weberpenn' : 'src',
-                       'openalea.weberpenn.wralea' : 'src/wralea',
-                       'openalea.weberpenn.demo' : 'src/demo',
+          package_dir={'openalea.weberpenn' : 'src/weberpenn',
+                       'openalea.weberpenn.wralea' : 'src/weberpenn/wralea',
+                       'openalea.weberpenn.demo' : 'src/weberpenn/demo',
                        '' : 'src', # hack to use develop command
                        },
           
@@ -40,7 +40,7 @@ if __name__ == '__main__':
           # entry_points
           entry_points = {
             "wralea": ["weberpenn = openalea.weberpenn.wralea",
-                       "demo = weberpenn = openalea.weberpenn.demo",
+                       "demo = openalea.weberpenn.demo",
                        ]
             },
 
