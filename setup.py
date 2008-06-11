@@ -19,9 +19,14 @@ if __name__ == '__main__':
           create_namespaces=True,
 
           # Packages
-          packages=['openalea.weberpenn','openalea.weberpenn.wralea'],
+          packages=['openalea.weberpenn',
+                    'openalea.weberpenn.wralea',
+                    'openalea.weberpenn.demo'],
+
+                       
           package_dir={'openalea.weberpenn' : 'src',
                        'openalea.weberpenn.wralea' : 'src/wralea',
+                       'openalea.weberpenn.demo' : 'src/demo',
                        '' : 'src', # hack to use develop command
                        },
           
@@ -34,7 +39,9 @@ if __name__ == '__main__':
 
           # entry_points
           entry_points = {
-            "wralea": ["weberpenn = openalea.weberpenn.wralea",]
+            "wralea": ["weberpenn = openalea.weberpenn.wralea",
+                       "demo = weberpenn = openalea.weberpenn.demo",
+                       ]
             },
 
           )
