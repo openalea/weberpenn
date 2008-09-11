@@ -4,23 +4,23 @@
 from openalea.core import *
 
 
-__name__ = 'Demo.WeberPenn'
+__name__ = 'demo.weberpenn'
 
 __editable__ = True
 __description__ = 'Demonstration of the WeberPenn geometric model.'
-__license__ = 'Unknow'
+__license__ = 'CECILL'
 __url__ = ''
-__version__ = '0.1.2'
+__version__ = '0.1.5'
 __authors__ = 'Christophe Pradal'
 __institutes__ = 'CIRAD'
 __icon__ = 'icon.png'
  
 
-__all__ = ['_262617676', '_142901228']
+__all__ = ['demo_grp', 'demo']
 
 
 
-_262617676 = CompositeNodeFactory(name='demo_WeberPenn_grp_1', 
+demo_grp = CompositeNodeFactory(name='demo_WeberPenn_grp_1', 
                              description='', 
                              category='Unclassified',
                              doc='',
@@ -142,7 +142,7 @@ _262617676 = CompositeNodeFactory(name='demo_WeberPenn_grp_1',
 
 
 
-_142901228 = CompositeNodeFactory(name='demo_WeberPenn', 
+demo = CompositeNodeFactory(name='demo_WeberPenn', 
                              description='Weber and Penn model for tree generation', 
                              category='Simulation',
                              doc='',

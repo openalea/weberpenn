@@ -9,7 +9,7 @@ namespace = 'openalea'
 if __name__ == '__main__':
     
     setup(name='vplants.weberpenn',
-          version='0.1.4',
+          version='0.1.5',
           author='C. Pradal',
           description='Implementation of the tree model published by Weber and Penn',
           url='',
