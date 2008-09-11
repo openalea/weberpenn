@@ -3,30 +3,29 @@ import os, sys
 from os.path import join as pj
  
 packagename = 'weberpenn'
-namespace = 'openalea'
+namespace = 'vplants'
 
 
 if __name__ == '__main__':
     
     setup(name='vplants.weberpenn',
-          version='0.1.5',
+          version='0.1.6',
           author='C. Pradal',
           description='Implementation of the tree model published by Weber and Penn',
           url='',
           license='Cecill',
           
-          namespace_packages=['openalea'],
+          namespace_packages=['vplants'],
           create_namespaces=True,
 
           # Packages
           packages=['openalea.weberpenn',
-                    'openalea.weberpenn.wralea',
-                    'openalea.weberpenn.demo'],
+                    'vplants.weberpenn',
+                    'vplants.weberpenn.wralea',
+                    'vplants.weberpenn.demo'],
 
                        
-          package_dir={'openalea.weberpenn' : 'src/weberpenn',
-                       'openalea.weberpenn.wralea' : 'src/weberpenn/wralea',
-                       'openalea.weberpenn.demo' : 'src/weberpenn/demo',
+          package_dir={'vplants.weberpenn' : 'src/weberpenn',
                        '' : 'src', # hack to use develop command
                        },
           
