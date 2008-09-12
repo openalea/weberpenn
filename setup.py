@@ -33,7 +33,7 @@ if __name__ == '__main__':
           zip_safe = False,
 
           # Dependencies
-          install_requires = ['PlantGL'],
+          install_requires = ['vplants.plantgl'],
           dependency_links = ['http://openalea.gforge.inria.fr/pi'],
 
           # entry_points
