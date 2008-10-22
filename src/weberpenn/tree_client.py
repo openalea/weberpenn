@@ -11,7 +11,7 @@ from  openalea.plantgl.all import Vector3, Point3Array, Polyline, Translation, a
      Matrix3, Matrix4, Transform4,Index3Array,Index3, TriangleSet, \
      eulerRotationZYX,eulerRotationXYZ, angle
 from random import randint, uniform
-from math import degrees, radians, sin, pi
+from math import degrees, radians, sin, pi, atan2
 import random
 from markov import Markov
 
@@ -559,7 +559,31 @@ class Weber_Laws( Weber_Penn ):
         
         rotate= self.param.n_rotate[-1]
 
-        
+        # Compute the local transformation
+        t_parent= Matrix3(self.tree._properties["transform"][axis_id])
+
+        def transform_leaf(rotate, down_angle, z, pt):
+            y = t_parent* Vector3(0,1,0)
+            x = t_parent* Vector3(1,0,0)
+            y = z^x
+            x = y^z
+
+            #print "z for leaf ", z
+            x.normalize()
+            y.normalize()
+            
+            r_rot= axisRotation(z, radians(rotate))
+            r_down= axisRotation(y,radians(down_angle))
+            
+            new_x = r_rot * r_down * x
+            new_y = r_rot* y
+            transfo = Matrix4(BaseOrientation(new_x, new_y).getMatrix3())
+            
+            #transfo[0,3]= pt.x
+            #transfo[1,3]= pt.y
+            #transfo[2,3]= pt.z
+            return transfo
+
         #r_down= axisRotation(Vector3(1,0,0),radians(angle))
         
         leaves= []
@@ -569,22 +593,27 @@ class Weber_Laws( Weber_Penn ):
             
             self.rotate[order]+= value(rotate)
             self.rotate[order]= self.rotate[order] % 360
-            a,e,r= radians(self.rotate[order]), radians(90-down_angle),angle(Vector3(0,0,1),tgt)
-            #a,e,r= random.uniform(-pi,pi),random.uniform(-pi,pi),random.uniform(-pi,pi)
-            euler= eulerRotationZYX(Vector3(r,e,a))
-            t_parent= Matrix3(self.tree._properties["transform"][pid])
+            _rotate = self.rotate[order]
 
-            m= t_parent*euler
+            #a,e,r= radians(self.rotate[order]), radians(90-down_angle),angle(Vector3(0,0,1),tgt)
+            #a,e,r= random.uniform(-pi,pi),random.uniform(-pi,pi),random.uniform(-pi,pi)
+            #euler= eulerRotationZYX(Vector3(r,e,a))
+
+            #m= t_parent*euler
             
             #debug
-            r_rot= axisRotation(tgt, radians(self.rotate[order]))
-            r_down= axisRotation(Vector3(1,0,0),radians(down_angle))
-            r_tgt= axisRotation(Vector3(1,0,0), angle(Vector3(0,0,1),tgt))
-            m= r_rot * r_down * r_tgt
+            #r_rot= axisRotation(tgt, radians(self.rotate[order]))
+            #r_down= axisRotation(Vector3(1,0,0),radians(down_angle))
+            #r_tgt= axisRotation(Vector3(1,0,0), angle(Vector3(0,0,1),tgt))
+            #m= r_rot * r_down * r_tgt
+
             #nv= r_rot * r_down * tgt
             #debug
             #nv= Vector3(random.random(), random.random(), random.random())
             #nv.normalize()
+
+            m = transform_leaf(_rotate, down_angle, tgt, pt)
+
             ls, ls_x= self.param.leaf_scale,self.param.leaf_scale_x
             leaves.append( Leaf(pt,m, ls,ls_x ) )
             

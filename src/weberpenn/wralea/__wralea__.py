@@ -21,6 +21,7 @@ black_tupelo
 black_oak
 weeping_willow
 weber_penn
+weber_penn_markov
 species
 read_arbaro
 """.split()
@@ -80,6 +81,13 @@ weber_penn = Factory(name='weber and penn',
                    category='Simulation', 
                    nodemodule='trunk_parameters',
                    nodeclass='weber_penn',
+                   )
+
+weber_penn_markov = Factory(name='weber and penn (markov)', 
+                   description='Tree generation from parameters.', 
+                   category='Simulation', 
+                   nodemodule='trunk_parameters',
+                   nodeclass='weber_penn_markov',
                    )
 
 species = Factory(name='species', 

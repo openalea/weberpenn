@@ -126,10 +126,10 @@ class GeomEngine(object):
 
         s= Scaled(Vector3(leaf.leaf_scale_x,leaf.leaf_scale,leaf.leaf_scale),s)
         
-        z= leaf.matrix*Vector3(0,0,1)
         x= leaf.matrix*Vector3(1,0,0)
+        y= leaf.matrix*Vector3(0,1,0)
 
-        s= pgl.Oriented(z,x,s)
+        s= pgl.Oriented(x,y,s)
         #a, e, r= uniform(-pi, pi), uniform(-pi,pi),uniform(-pi,pi) 
         #s= EulerRotated(a,e,r, s)
              

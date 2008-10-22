@@ -31,7 +31,7 @@ class global_parameters(Node):
                  {'interface': IFloat, 'name': 'scale_variance', 'value': 0.,'hide':True}, 
                  {'interface': IInt(min=0,max=4), 'name': 'order', 'value': 0}, 
                  {'interface': IFloat(max=1., step=0.01), 'name': 'ratio', 'value': 0.01}, 
-                 {'interface': IFloat(min=0., step=0.1), 'name': 'ratio_power', 'value': 1}, 
+                 {'interface': IFloat(min=0., step=0.01), 'name': 'ratio_power', 'value': 1}, 
                  {'interface': IInt(min=0), 'name': 'leaves', 'value': 0}, 
                  {'interface': IFloat, 'name': 'leaf_scale', 'value': 1.}, 
                  {'interface': IFloat, 'name': 'leaf_scale_x', 'value': 1.,'hide':True}, 
@@ -203,6 +203,29 @@ def weber_penn(parameters, seed, position):
 
     scene = Scene()
     client= Weber_Laws(parameters)
+    server= tree_server.TreeServer(client)
+    server.run()
+    if not position:
+        position = pgl.Vector3(0., 0., 0.)
+    Vector2 = pgl.Vector2
+    p= [Vector2(0.5,0), Vector2( 0,0.5), 
+         Vector2(-0.5,0),Vector2(0,-0.5),Vector2(0.5,0)]
+    section= pgl.Polyline2D(p)
+    
+    geom= tree_geom.GeomEngine(server,section,position)
+    
+    scene= geom.scene('axis', scene)
+    
+    return scene,
+
+def weber_penn_markov(parameters, seed, position, p0, p1):
+    if not parameters:
+        return
+    
+    random.seed(seed)
+
+    scene = Scene()
+    client= Markov_Laws(parameters, p0, p1)
     server= tree_server.TreeServer(client)
     server.run()
     if not position:
