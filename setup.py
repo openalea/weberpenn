@@ -19,7 +19,7 @@ if __name__ == '__main__':
           create_namespaces=True,
 
           # Packages
-          packages=['openalea.weberpenn',
+          packages=['openalea',
                     'vplants.weberpenn',
                     'vplants.weberpenn.wralea',
                     'vplants.weberpenn.demo'],
