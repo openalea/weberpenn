@@ -24,7 +24,6 @@ if __name__ == '__main__':
                     'vplants.weberpenn.wralea',
                     'vplants.weberpenn.demo'],
 
-                       
           package_dir={'vplants.weberpenn' : 'src/weberpenn',
                        '' : 'src', # hack to use develop command
                        },
