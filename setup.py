@@ -8,8 +8,8 @@ namespace = 'vplants'
 
 if __name__ == '__main__':
     
-    setup(name='vplants.weberpenn',
-          version='0.6.2',
+    setup(name='VPlants.Weberpenn',
+          version='0.6.3',
           author='C. Pradal',
           description='Implementation of the tree model published by Weber and Penn',
           url='',
