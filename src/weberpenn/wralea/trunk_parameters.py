@@ -3,9 +3,14 @@ import random
 from openalea.core import *
 
 from openalea.weberpenn.tree_client import *
+from openalea.weberpenn.mtg_client import Weber_MTG
 import openalea.weberpenn.tree_server as tree_server
 import openalea.weberpenn.tree_geom as tree_geom
 import openalea.plantgl.all as pgl
+from openalea.mtg.io import read_mtg_file
+
+class WeberPennError(Exception):
+    pass
 
 class global_parameters(Node):
     shapes = {"0 - Conical":0,  
@@ -239,6 +244,21 @@ def weber_penn_markov(parameters, seed, position, p0, p1):
     
     scene= geom.scene('axis', scene)
     
+    return scene,
+
+def weber_penn_mtg(mtg_file, parameters, seed, position):
+    if not parameters or not mtg_file:
+        raise WeberPennError("Unable to run the Weber and Penn model without parameters.")
+    
+    random.seed(seed)
+
+    g = read_mtg_file(mtg_file)
+
+    scene = Scene()
+    client= Weber_MTG(parameters, g)
+    client.run()
+
+    scene = client.plot()
     return scene,
 
 def import_arbaro( filename):

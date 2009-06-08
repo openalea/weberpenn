@@ -367,11 +367,15 @@ class Weber_Laws( Weber_Penn ):
 
     def get_curvature( self, order, nb_nodes, branching= None ):
         curve, curveV, curve_back = self.param.n_curve[order][1:]
+        
+        if nb_nodes < 2:
+            return []
+
         if curve_back == 0:
             return [value((curve,curveV))/nb_nodes \
                     for i in range(nb_nodes-2)]
         else:
-            n= (nb_nodes-2)/2
+            n= (nb_nodes-1)/2
             c= []
             for i in range(nb_nodes-2):
                 if i < n:

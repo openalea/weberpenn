@@ -22,6 +22,7 @@ black_oak
 weeping_willow
 weber_penn
 weber_penn_markov
+weber_penn_mtg
 species
 read_arbaro
 """.split()
@@ -88,6 +89,13 @@ weber_penn_markov = Factory(name='weber and penn (markov)',
                    category='Simulation', 
                    nodemodule='trunk_parameters',
                    nodeclass='weber_penn_markov',
+                   )
+
+weber_penn_mtg = Factory(name='weber and penn (mtg)', 
+                   description='Geometric solver using Weber and Penn parameters on MTG.', 
+                   category='Simulation', 
+                   nodemodule='trunk_parameters',
+                   nodeclass='weber_penn_mtg',
                    )
 
 species = Factory(name='species', 
