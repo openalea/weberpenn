@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
           # entry_points
           entry_points = {
-            "wralea": ["weberpenn = openalea.weberpenn.wralea",
+            "vplants.weberpenn": ["weberpenn = openalea.weberpenn.wralea",
                        "demo = openalea.weberpenn.demo",
                        ]
             },
