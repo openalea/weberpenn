@@ -9,7 +9,7 @@ __description__ = 'Construction of geometric tree models from parameters describ
 __url__ = 'http://openalea.gforge.inria.fr'
  
 __editable__ = 'False' 
- 
+__icon__ = 'icon.png' 
 __alias__ = ["WeberPenn"] # Aliases for compatibitity
 
 __all__ = """

@@ -4,12 +4,12 @@ from os.path import join as pj
  
 packagename = 'weberpenn'
 namespace = 'vplants'
-
+version = '0.7.0'
 
 if __name__ == '__main__':
     
     setup(name='VPlants.Weberpenn',
-          version='0.6.3',
+          version=version,
           author='C. Pradal',
           description='Implementation of the tree model published by Weber and Penn',
           url='',
@@ -19,7 +19,7 @@ if __name__ == '__main__':
           create_namespaces=True,
 
           # Packages
-          packages=['openalea.weberpenn',
+          packages=['openalea', 'openalea.weberpenn',
                     'vplants.weberpenn',
                     'vplants.weberpenn.wralea',
                     'vplants.weberpenn.demo'],
@@ -27,7 +27,7 @@ if __name__ == '__main__':
           package_dir={'vplants.weberpenn' : 'src/weberpenn',
                        '' : 'src', # hack to use develop command
                        },
-          
+
           # Add package platform libraries if any
           zip_safe = False,
 
@@ -37,8 +37,8 @@ if __name__ == '__main__':
 
           # entry_points
           entry_points = {
-            "vplants.weberpenn": ["weberpenn = openalea.weberpenn.wralea",
-                       "demo = openalea.weberpenn.demo",
+            "wralea": ["weberpenn = vplants.weberpenn.wralea",
+                       "demo = vplants.weberpenn.demo",
                        ]
             },
 
