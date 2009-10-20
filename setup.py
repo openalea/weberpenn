@@ -41,7 +41,7 @@ if __name__ == '__main__':
                        "demo = vplants.weberpenn.demo",
                        ]
             },
-
+          pylint_packages = ['src/weberpenn']
           )
 
 
