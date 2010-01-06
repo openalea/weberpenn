@@ -1,20 +1,22 @@
 from setuptools import setup, find_packages
 import os, sys
 from os.path import join as pj
- 
-packagename = 'weberpenn'
-namespace = 'vplants'
-version = '0.7.0'
+
+
+from openalea.deploy.metainfo import read_metainfo
+metadata = read_metainfo('metainfo.ini', verbose=True)
+for key,value in zip(metadata.keys(), metadata.values()):
+    exec("%s = '%s'" % (key, value))
 
 if __name__ == '__main__':
-    
-    setup(name='VPlants.Weberpenn',
+
+    setup(name=name,
           version=version,
-          author='C. Pradal',
-          description='Implementation of the tree model published by Weber and Penn',
-          url='',
-          license='Cecill',
-          
+          author=authors,
+          description=description,
+          url=url,
+          license=license,
+
           namespace_packages=['vplants'],
           create_namespaces=True,
 
@@ -41,8 +43,4 @@ if __name__ == '__main__':
                        "demo = vplants.weberpenn.demo",
                        ]
             },
-          pylint_packages = ['src/weberpenn']
           )
-
-
-    

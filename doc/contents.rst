@@ -30,7 +30,7 @@ Documentation
     :maxdepth: 1
 
     User Guide<user/index.rst>   
-    Reference Guide<WeberPenn/index.rst>
+    Reference Guide<user/autosum.rst>
 
 - A `PDF <../latex/WeberPenn.pdf>`_ version of |WeberPenn| documentation is 
   available.
