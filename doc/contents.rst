@@ -32,7 +32,7 @@ Documentation
     User Guide<user/index.rst>   
     Reference Guide<user/autosum.rst>
 
-- A `PDF <../latex/WeberPenn.pdf>`_ version of |WeberPenn| documentation is 
+- A `PDF <../latex/main.pdf>`_ version of |WeberPenn| documentation is 
   available.
 
 .. seealso::
