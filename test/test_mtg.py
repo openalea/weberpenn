@@ -1,5 +1,17 @@
 from openalea.mtg import *
 from openalea.weberpenn.mtg_client import *
+from openalea.grapheditor import dataflowview
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
+import warnings
+if not QCoreApplication.instance() is None:
+    warnings.warn("A QApplication is already running")
+else:
+    app = QApplication([])
+Viewer.start()
+
+
 
 def default_mtg():
     g = MTG()
