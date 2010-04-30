@@ -7,9 +7,9 @@
 
 from openalea.plantgl.all import *
 import openalea.plantgl.all as PlantGL
-from  openalea.plantgl.all import Vector3, Point3Array, Polyline, Translation, axisRotation, \
-     Matrix3, Matrix4, Transform4,Index3Array,Index3, TriangleSet, \
-     eulerRotationZYX,eulerRotationXYZ, angle
+from  openalea.plantgl.all import (Vector3, Point3Array, Polyline, 
+Translation, axisRotation, Matrix3, Matrix4, Transform4,
+Index3Array,Index3, TriangleSet, eulerRotationZYX,eulerRotationXYZ, angle)
 from random import randint, uniform
 from math import degrees, radians, sin, pi, atan2
 import random
