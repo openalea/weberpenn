@@ -1,0 +1,16 @@
+Source: vplants-weberpenn
+Maintainer: Christophe Pradal <christophe.pradal@cirad.fr>
+Section: python
+Priority: optional
+Build-Depends: python-setuptools (>= 0.6b3), debhelper (>= 7), python-support (>= 0.8.4), python-openalea.deploy, python-openalea.sconsx
+Standards-Version: 3.8.4
+
+Package: python-vplants.weberpenn
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-vplants.plantgl, python-openalea, python-openalea.mtg
+XB-Python-Version: ${python:Versions}
+Provides: ${python:Provides}
+Description: Implementation of the tree model published by Weber and Penn, 95
+  This model is based on the Weber and Penn model. It is extended to generate 
+  MTG datastructure and Markov chains as generator.
+

@@ -20,7 +20,7 @@ if __name__ == '__main__':
           url=url,
           license=license,
 
-          namespace_packages=['vplants'],
+          namespace_packages=['vplants', 'openalea'],
           create_namespaces=True,
 
           # Packages
