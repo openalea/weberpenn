@@ -252,9 +252,11 @@ def weber_penn_mtg(mtg_file, parameters, seed, position):
     
     random.seed(seed)
 
-    g = read_mtg_file(mtg_file)
+    if isinstance(mtg_file, str):
+        g = read_mtg_file(mtg_file)
+    else:
+        g = mtg_file
 
-    scene = Scene()
     client= Weber_MTG(parameters, g)
     client.run()
 
