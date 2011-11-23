@@ -109,6 +109,9 @@ def _arbaro2params(symbols):
     if "3Branches" in symbols:
         branches.append(int(symbols["3Branches"]))
 
+    while len(branches) < order:
+        branches.append(branches[-1])
+
     n_taper = [float(symbols["0Taper"])] 
     if "1Taper" in symbols:
         n_taper.append(float(symbols["1Taper"]))
