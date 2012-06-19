@@ -1,3 +1,21 @@
+vplants-weberpenn (1.0.1~ppa1) precise; urgency=low
+
+  *  Release 1.0 on precise  
+
+ -- Christophe Pradal <christophe.pradal@cirad.fr>  Sun, 25 Mar 2012 16:34:21 +0200
+
+vplants-weberpenn (1.0.0b2~ppa1) oneiric; urgency=low
+
+  * Fix Vplants and openalea namespace 
+
+ -- Christophe Pradal <christophe.pradal@cirad.fr>  Fri, 06 Jan 2012 17:18:30 +0100
+
+vplants-weberpenn (1.0.0b1~ppa1) oneiric; urgency=low
+
+  * Release
+
+ -- Christophe Pradal <christophe.pradal@cirad.fr>  Tue, 06 Dec 2011 10:59:07 +0100
+
 vplants-weberpenn (0.9.0-1~ppa1) lucid; urgency=low
 
   * source package automatically created by stdeb 0.6.0
