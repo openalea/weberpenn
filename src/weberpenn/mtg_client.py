@@ -76,7 +76,7 @@ class Weber_MTG(Weber_Laws):
 
     def get_trunk(self):
         g = self.g
-        axis_id = g.components(g.root).next()
+        axis_id = g.components_iter(g.root).next()
 
         self.get_stem(axis_id)
         return axis_id
@@ -92,7 +92,7 @@ class Weber_MTG(Weber_Laws):
         g = self.g
         frames = self.frame
         frames.setdefault(vid, GeometryParameters())
-        for v in g.components(vid):
+        for v in g.components_iter(vid):
             frames.setdefault(v, GeometryParameters())
 
     def get_curvature(self, vid):
@@ -105,7 +105,7 @@ class Weber_MTG(Weber_Laws):
         nb_nodes = g.nb_components(vid) +1
 
         curvature = super(Weber_MTG, self).get_curvature(order,nb_nodes)
-        components = list(g.components(vid))
+        components = g.components(vid)
         assert len(curvature) == len(components) -1
 
         for i, v in enumerate(components):
@@ -135,7 +135,7 @@ class Weber_MTG(Weber_Laws):
         else:
             # pid is the parent axis to vid
             pid = g.parent(vid)
-            root_id = g.components(vid).next()
+            root_id = g.components_iter(vid).next()
             offset_id = g.parent(root_id)
             assert g.complex(offset_id) == pid
 
@@ -160,7 +160,7 @@ class Weber_MTG(Weber_Laws):
         frames[vid].length = total_len
         
         offset_length = 0
-        for i,v in enumerate(g.components(vid)):
+        for i,v in enumerate(g.components_iter(vid)):
             length = l[i]
             offset_length+= length
             frames[v].length = length
@@ -179,7 +179,7 @@ class Weber_MTG(Weber_Laws):
         if order == 0:
             rotate= value(self.param.n_rotate[order])
             frames[vid].rotate = rotate
-            for v in g.components(vid):
+            for v in g.components_iter(vid):
 
                 et = [c for c in g.children(v) if edge_type.get(c) == '+']
                 n = len(et)
@@ -193,7 +193,7 @@ class Weber_MTG(Weber_Laws):
             return
 
         pid = g.parent(vid)
-        root_id = g.components(vid).next()
+        root_id = g.components_iter(vid).next()
         offset_id = g.parent(root_id)
 
         down= self.param.n_down_angle[order]
@@ -216,7 +216,7 @@ class Weber_MTG(Weber_Laws):
         rotate= value(self.param.n_rotate[order-1])
 
         frames[vid].rotate = rotate
-        for v in g.components(vid):
+        for v in g.components_iter(vid):
             r = (r+rotate) %360
             frames[v].rotate = r
             
@@ -273,7 +273,7 @@ class Weber_MTG(Weber_Laws):
         p = PglTurtle()
         #p.startGC()
 
-        root = g.roots(scale=2).next()
+        root = g.roots_iter(scale=2).next()
 
         min_length = min([f.length for f in frames.itervalues() if f.length and f.length >0])
         for vid in pre_order_turtle(g, root, p):
@@ -334,16 +334,15 @@ def create_mtg_with_axes(g):
     """
 
     max_scale = g.max_scale()
-    tree_root = g.roots(scale=max_scale).next()
+    tree_root = g.roots_iter(scale=max_scale).next()
     colors = {}
 
     edge_type = g.property('edge_type')
-    colors[2] = list(g.vertices(scale=max_scale))
+    colors[2] = g.vertices(scale=max_scale)
     colors[1] = [vid for vid, edge in edge_type.iteritems() if edge=='+' and g.scale(vid) == max_scale]
     colors[1].insert(0,tree_root)
 
     mtg, new_map = colored_tree(g, colors)
-    # TODO: In colored_tree, change vertex ids.
 
     return mtg, new_map
 
