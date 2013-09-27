@@ -1,10 +1,10 @@
 import random     
 import os
 
-from tree_client import *
-import tree_client
-import tree_server
-import tree_geom
+from vplants.weberpenn.tree_client import *
+from vplants.weberpenn import tree_client
+from vplants.weberpenn import tree_server
+from vplants.weberpenn import tree_geom
 from openalea.plantgl.all import *
 
 viewer= Viewer
