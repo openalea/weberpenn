@@ -1,3 +1,9 @@
+vplants-weberpenn (1.2.0~ppa1) trusty; urgency=medium
+
+  * Port to Trusty  
+
+ -- Christophe Pradal <christophe.pradal@cirad.fr>  Thu, 02 Oct 2014 06:36:13 +0200
+
 vplants-weberpenn (1.0.1~ppa9) quantal; urgency=low
 
   *  Port to Quantal  

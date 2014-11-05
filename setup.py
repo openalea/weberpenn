@@ -41,7 +41,7 @@ if __name__ == '__main__':
           package_data = {'' : [ '*.png'],},
 
           # Dependencies
-          install_requires = ['vplants.plantgl'],
+          install_requires = [],
           dependency_links = ['http://openalea.gforge.inria.fr/pi'],
 
           # entry_points
