@@ -4,16 +4,16 @@
   Author: Christophe Pradal (christophe.pradal@cirad.fr)
 """
 
-class TreeServer(object):
 
-    def __init__( self, client ):
-        self.client= client
-        self.tree= None
+class TreeServer(object):
+    def __init__(self, client):
+        self.client = client
+        self.tree = None
 
     def run(self):
-        self.tree= self.client.run()
+        self.tree = self.client.run()
 
-    def axes(self,order):
+    def axes(self, order):
         """
         Return the list of axis_id at a specific order.
         """
@@ -47,8 +47,7 @@ class TreeServer(object):
     def _get_max_order(self):
         return self.client.max_order
     
-    def _set_max_order(self,max_order):
+    def _set_max_order(self, max_order):
         raise "max_order is a read only attibute"
-        
-    max_order=property(_get_max_order, _set_max_order)
-    
+
+    max_order = property(_get_max_order, _set_max_order)

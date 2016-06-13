@@ -1,38 +1,39 @@
-import random     
+import random
 import os
-
 from vplants.weberpenn.tree_client import *
 from vplants.weberpenn import tree_client
 from vplants.weberpenn import tree_server
 from vplants.weberpenn import tree_geom
 from openalea.plantgl.all import *
 
-viewer= Viewer
-p= [Vector2(0.5,0), Vector2( 0,0.5), Vector2(-0.5,0),Vector2(0,-0.5),Vector2(0.5,0)]
-section= Polyline2D(p)
+viewer = Viewer
+p = [Vector2(0.5, 0), Vector2(0, 0.5), Vector2(-0.5, 0), Vector2(0, -0.5),
+     Vector2(0.5, 0)]
+section = Polyline2D(p)
+
+p = [tree_client.Quaking_Aspen(),
+     tree_client.Black_Tupelo(),
+     tree_client.Black_Oak(),
+     tree_client.Weeping_Willow()]
+p1, p2, p3, p4 = p
 
 
-p= [ tree_client.Quaking_Aspen(),
-tree_client.Black_Tupelo() ,
-tree_client.Black_Oak(),
-tree_client.Weeping_Willow() ]
-p1,p2,p3,p4= p
-
-def f( param, section=section, position= Vector3(), scene= Scene() ):
-    #param.leaves= 0
-    client= tree_client.Weber_Laws(param)
-    server= tree_server.TreeServer(client)
+def f(param, section=section, position=Vector3(), scene=Scene()):
+    # param.leaves= 0
+    client = tree_client.Weber_Laws(param)
+    server = tree_server.TreeServer(client)
     server.run()
-    geom= tree_geom.GeomEngine(server,section,position)
-    #scene= geom.scene('point', scene)
-    scene= geom.scene('axis', scene)
+    geom = tree_geom.GeomEngine(server, section, position)
+    # scene= geom.scene('point', scene)
+    scene = geom.scene('axis', scene)
     return scene
 
-scenes= []
+
+scenes = []
 for param in p:
-    param.leaves= 0
-    param.order-= 1
-    s= f(param, section)
+    param.leaves = 0
+    param.order -= 1
+    s = f(param, section)
     scenes.append(s)
 
 """

@@ -3,8 +3,8 @@ from openalea.weberpenn.mtg_client import *
 from openalea.grapheditor import dataflowview
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-
 import warnings
+
 if not QCoreApplication.instance() is None:
     warnings.warn("A QApplication is already running")
 else:
@@ -12,14 +12,13 @@ else:
 Viewer.start()
 
 
-
 def default_mtg():
     g = MTG()
     root = g.add_component(g.root)
 
-    axis0 = [0,0,2,0,1,0,1,0]
-    axis1 = [1,0,2,0]
-    axis2 = [0,0]
+    axis0 = [0, 0, 2, 0, 1, 0, 1, 0]
+    axis1 = [1, 0, 2, 0]
+    axis2 = [0, 0]
 
     def add_axis(vid, axis):
         stack = []
@@ -36,10 +35,11 @@ def default_mtg():
         order2.extend(add_axis(vid, axis1))
     for vid in order2:
         add_axis(vid, axis2)
-                
+
     fat_mtg(g)
 
     return g
+
 
 def test1():
     # Build an Tree
@@ -64,6 +64,7 @@ def test4():
     wp.plot()
     return wp
 
+
 def test3():
     p = PglTurtle()
     p.F(10)
@@ -73,7 +74,7 @@ def test3():
     p.F(10)
 
     # ramif
-    l=3
+    l = 3
     phi = 30
     p.push()
     p.rollL(phi)
@@ -113,14 +114,14 @@ def test3():
     p.stopGC()
     Viewer.display(p.getScene())
 
+
 def test4():
     from openalea.core import alea
     from openalea.mtg.io import read_mtg_file
 
-    fn = alea.run(('demo.mtg','agraf.mtg'), [])[0]
+    fn = alea.run(('demo.mtg', 'agraf.mtg'), [])[0]
     g = read_mtg_file(fn)
     param = Quaking_Aspen()
     param.order = 2
     wp = Weber_MTG(param, g)
     wp.run()
- 
