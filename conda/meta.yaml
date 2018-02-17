@@ -16,14 +16,12 @@ requirements:
   build:
     - python
     - setuptools
-    - pywin32 # [win]
+    - openalea.deploy
     - six
   run:
-    - python
-    - setuptools
-    - pywin32 # [win]
     - six
-    - vplants.plantgl
+    - openalea.plantgl
+    - openalea.mtg
 
 test:
   imports:
