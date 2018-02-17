@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-__revision__ = "$Id$"
 
 from setuptools import setup, find_packages
 import os, sys
@@ -11,6 +10,10 @@ metadata = read_metainfo('metainfo.ini', verbose=True)
 for key,value in metadata.iteritems():
     exec("%s = '%s'" % (key, value))
 
+namespace = 'openalea'
+packages=find_packages('src')
+package_dir={'': 'src'}
+
 if __name__ == '__main__':
 
     setup(name=name,
@@ -20,18 +23,13 @@ if __name__ == '__main__':
           url=url,
           license=license,
 
-          namespace_packages=['vplants', 'openalea'],
+          namespace_packages=[namespace],
           create_namespaces=True,
 
           # Packages
-          packages=['openalea', 'openalea.weberpenn',
-                    'vplants.weberpenn',
-                    'vplants.weberpenn.wralea',
-                    'vplants.weberpenn.demo'],
+          packages=packages,
 
-          package_dir={'vplants.weberpenn' : 'src/weberpenn',
-                       '' : 'src', # hack to use develop command
-                       },
+          package_dir=package_dir,
 
           # Add package platform libraries if any
           zip_safe = False,
@@ -46,8 +44,8 @@ if __name__ == '__main__':
 
           # entry_points
           entry_points = {
-            "wralea": ["weberpenn = vplants.weberpenn.wralea",
-                       "demo = vplants.weberpenn.demo",
+            "wralea": ["weberpenn = openalea.weberpenn.wralea",
+                       "demo = openalea.weberpenn.demo",
                        ]
             },
           )

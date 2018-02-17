@@ -1,0 +1,33 @@
+{% set version = "2.0.0" %}
+
+package:
+  name: openalea.weberpenn
+  version: {{ version }}
+
+source:
+  path: ..
+
+build:
+  preserve_egg_dir: True
+  number: 0
+  script: python setup.py install
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - openalea.deploy
+    - six
+  run:
+    - six
+    - openalea.plantgl
+    - openalea.mtg
+
+test:
+  imports:
+    - openalea.weberpenn
+
+about:
+  home: http://github.com/openalea/weberpenn
+  license: Cecill-C License
+  summary: An extension of the Weber and Penn model.

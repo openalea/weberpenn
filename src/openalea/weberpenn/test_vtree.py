@@ -1,9 +1,9 @@
 import random
 import os
-from vplants.weberpenn.tree_client import *
-from vplants.weberpenn import tree_client
-from vplants.weberpenn import tree_server
-from vplants.weberpenn import tree_geom
+from openalea.weberpenn.tree_client import *
+from openalea.weberpenn import tree_client
+from openalea.weberpenn import tree_server
+from openalea.weberpenn import tree_geom
 from openalea.plantgl.all import *
 
 viewer = Viewer
@@ -43,7 +43,7 @@ for s in seed:
     i= s-1
     x,y= i/3, i%3
     scene=f(p,section,Vector3(x*5,y*5,0), scene)
-    
+
 def plot(scenes):
     for i in range(9):
         viewer.display(scenes[i])
@@ -69,7 +69,7 @@ def save_shrub(seeds):
 def Shrub():
     shape_id= 2
     base_size= 0.1
-    scale= (4,1) 
+    scale= (4,1)
     order= 3
     ratio= 0.018
     ratio_power= 1.3
@@ -102,7 +102,7 @@ scene= Scene()
 def foug():
     shape_id= 0
     base_size= 0.2
-    scale= (1.,0.1) 
+    scale= (1.,0.1)
     order= 3
     ratio= 0.02
     ratio_power= 1.1
@@ -127,7 +127,7 @@ def foug():
                           n_seg_split, n_split_angle, n_down_angle,
                           n_curve, n_rotate, branches, leaves, leaf_scale, leaf_scale_x,
                           rotate)
-    
+
 class Fougere(tree_client.Weber_Laws):
     def __init__(self, param):
         tree_client.Weber_Laws.__init__(self,param)
@@ -135,7 +135,7 @@ class Fougere(tree_client.Weber_Laws):
     def get_branches( self, order, nb_nodes, branching= None ):
 
         assert nb_nodes > 0
-        
+
         b=[ i%2 for i in xrange(nb_nodes)]
 
         b[0]= 0
@@ -147,14 +147,14 @@ class Fougere(tree_client.Weber_Laws):
     def get_leaves(self, n, axis_id):
 
         order= self.max_order
-        
+
         pid= self.tree._parent[axis_id]
         offset= self.tree._properties["offset"][axis_id]
 
         if pid != self.prev_parent_id:
             self.prev_parent_id= pid
             self.rotate[order]= self.param.rotate[order]
-        
+
         poly= self.tree._properties["polyline"][axis_id]
         length= self.tree._properties["length"][pid]
         length_axis= self.tree._properties["length"][axis_id]
@@ -176,10 +176,10 @@ class Fougere(tree_client.Weber_Laws):
             ratio= (length -l_offset) / (length * (1-self.param.base_size))
             downV= down[1]* shape_ratio(0,1-2*shape_ratio(0,ratio))
             down_angle= value( (down[0], downV) )
-        
+
         rotate= self.param.n_rotate[-1]
 
-        
+
         #r_down= axisRotation(Vector3(1,0,0),radians(angle))
         ppid= self.tree._parent[pid]
         poffset= self.tree._properties["offset"][pid]
@@ -190,10 +190,10 @@ class Fougere(tree_client.Weber_Laws):
         for i, pt in enumerate(pts):
             ratio= (length -l_offset) / (length * (1-self.param.base_size))
             ratio*=1-pow(pl_offset/plength*(1-self.param.base_size),self.param.ratio_power)
-            
+
             #print ratio
             tgt= tgts[i]
-            
+
             self.rotate[order]+= value(rotate)
             self.rotate[order]= self.rotate[order] % 360
             a,e,r= radians(self.rotate[order]), radians(down_angle),angle(Vector3(0,0,1),tgt)
@@ -213,8 +213,8 @@ class Fougere(tree_client.Weber_Laws):
             m= t_parent*euler
             ls, ls_x= self.param.leaf_scale,self.param.leaf_scale_x
             leaves.append( Leaf(pt,m, ls*ratio,ls_x ) )
-            
-            
+
+
         return leaves
 
 
