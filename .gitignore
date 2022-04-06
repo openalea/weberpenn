@@ -91,6 +91,7 @@ doc/_dvlpt/
 # user custom filters
 
 # Notebook
-.ipynb_checkpoints/
+.ipynb_checkpoints
+.vscode
 
 .DS_Store

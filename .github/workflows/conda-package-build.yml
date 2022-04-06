@@ -25,3 +25,4 @@ jobs:
         python: ${{ matrix.python-minor-version }}
         channels: openalea3, conda-forge
         token: ${{ secrets.ANACONDA_TOKEN }}
+        label: main
