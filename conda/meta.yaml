@@ -1,8 +1,8 @@
-{% set version = "2.0.1" %}
+{% set data = load_setup_py_data() %}
 
 package:
   name: openalea.weberpenn
-  version: {{ version }}
+  version: {{ data.get('version') }}
 
 source:
   path: ..
@@ -13,13 +13,12 @@ build:
   script: python setup.py install
 
 requirements:
-  build:
-    - python
+  hold:
+    - python {{PY_VER}}
     - setuptools
     - openalea.deploy
-    - six
+
   run:
-    - six
     - openalea.plantgl
     - openalea.mtg
 
