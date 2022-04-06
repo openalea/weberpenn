@@ -53,12 +53,14 @@ def bezier_leaf():
     return leaf
 
 
-class GeomEngine(object):
+class GeomEngine:
     """
     Construct a scene graph from a computed tree.
     """
 
-    def __init__(self, server, section, position=Vector3(0, 0, 0), color=brown,
+    def __init__(self, server, section, 
+                 position=Vector3(0, 0, 0), 
+                 color=brown,
                  leaf=None):
         self.server = server
         self.color = color
@@ -93,7 +95,7 @@ class GeomEngine(object):
         else:
             self.axes(max_order, view)
 
-        map(lambda x: scene.add(x), self._shapes)
+        list(scene.add(x) for x in self._shapes)
         return scene
 
     def axes(self, order, view="axis"):
@@ -116,8 +118,8 @@ class GeomEngine(object):
         leaves = server.leaves()
         leaf = self.leaf
         # map( lambda x: scene.add(self.leaf_shape(x,color,leaf)), leaves )
-        map(lambda x: self._shapes.append(self.leaf_shape(x, color, leaf)),
-            leaves)
+        new_leaves = [self.leaf_shape(x, color, leaf) for leaf in leaves]
+        self._shapes.extend(new_leaves)
 
     def leaf_shape(self, leaf, color, shape):
 

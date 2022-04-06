@@ -1,15 +1,10 @@
 from openalea.mtg import *
 from openalea.weberpenn.mtg_client import *
-from openalea.grapheditor import dataflowview
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
 import warnings
 
-if not QCoreApplication.instance() is None:
-    warnings.warn("A QApplication is already running")
-else:
-    app = QApplication([])
-Viewer.start()
+try:
+    from openalea.grapheditor import dataflowview
+
 
 
 def default_mtg():
@@ -59,7 +54,7 @@ def test2():
     return wp
 
 
-def test4():
+def plottest4():
     wp = test2()
     wp.plot()
     return wp
@@ -112,9 +107,10 @@ def test3():
     p.F(10)
     
     p.stopGC()
-    Viewer.display(p.getScene())
+    return p
+    #Viewer.display(p.getScene())
 
-
+"""
 def test4():
     from openalea.core import alea
     from openalea.mtg.io import read_mtg_file
@@ -125,3 +121,4 @@ def test4():
     param.order = 2
     wp = Weber_MTG(param, g)
     wp.run()
+"""

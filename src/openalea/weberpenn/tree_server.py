@@ -5,7 +5,7 @@
 """
 
 
-class TreeServer(object):
+class TreeServer:
     def __init__(self, client):
         self.client = client
         self.tree = None
@@ -44,10 +44,6 @@ class TreeServer(object):
         return self.tree.leaves
     
     # properties
-    def _get_max_order(self):
+    @property
+    def max_order(self):
         return self.client.max_order
-    
-    def _set_max_order(self, max_order):
-        raise "max_order is a read only attibute"
-
-    max_order = property(_get_max_order, _set_max_order)
