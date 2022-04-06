@@ -13,6 +13,7 @@ authors_email = 'christophe.pradal@cirad.fr'
 url = 'https://github.com/openalea/weberpenn'
 license='Cecill-C'
 
+version = '2.1.0'
 namespace = 'openalea'
 packages=find_packages('src')
 package_dir={'': 'src'}
