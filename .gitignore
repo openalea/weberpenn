@@ -1,4 +1,3 @@
-# {# pkglts, github
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -88,8 +87,6 @@ target/
 # sphinx autogen file
 doc/_dvlpt/
 
-
-# #}
 
 # user custom filters
 
