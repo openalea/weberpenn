@@ -4,7 +4,7 @@
   Author: Christophe Pradal (christophe.pradal@cirad.fr)
 """
 
-from tree_client import *
+from .tree_client import *
 import xml.etree.ElementTree as xml
 
 

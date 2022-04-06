@@ -68,7 +68,7 @@ class Weber_MTG(Weber_Laws):
 
     def get_trunk(self):
         g = self.g
-        axis_id = g.components_iter(g.root).next()
+        axis_id = next(g.components_iter(g.root))
 
         self.get_stem(axis_id)
         return axis_id
@@ -128,7 +128,7 @@ class Weber_MTG(Weber_Laws):
         else:
             # pid is the parent axis to vid
             pid = g.parent(vid)
-            root_id = g.components_iter(vid).next()
+            root_id = next(g.components_iter(vid))
             offset_id = g.parent(root_id)
             assert g.complex(offset_id) == pid
 
@@ -187,7 +187,7 @@ class Weber_MTG(Weber_Laws):
             return
 
         pid = g.parent(vid)
-        root_id = g.components_iter(vid).next()
+        root_id = next(g.components_iter(vid))
         offset_id = g.parent(root_id)
 
         down = self.param.n_down_angle[order]
@@ -234,7 +234,7 @@ class Weber_MTG(Weber_Laws):
         else:
             # pid is the parent axis to vid
             pid = g.parent(vid)
-            root_id = g.components(vid).next()
+            root_id = next(g.components(vid))
             offset_id = g.parent(root_id)
             parent_len = frames[pid].length
             parent_radius = frames[pid].radius
@@ -266,9 +266,9 @@ class Weber_MTG(Weber_Laws):
         p = PglTurtle()
         # p.startGC()
 
-        root = g.roots_iter(scale=2).next()
+        root = next(g.roots_iter(scale=2))
 
-        min_length = min([f.length for f in frames.itervalues() if
+        min_length = min([f.length for f in frames.values() if
                           f.length and f.length > 0])
         for vid in pre_order_turtle(g, root, p):
             down = frames[vid].down
@@ -328,12 +328,12 @@ def create_mtg_with_axes(g):
     """
 
     max_scale = g.max_scale()
-    tree_root = g.roots_iter(scale=max_scale).next()
+    tree_root = next(g.roots_iter(scale=max_scale))
     colors = {}
 
     edge_type = g.property('edge_type')
     colors[2] = g.vertices(scale=max_scale)
-    colors[1] = [vid for vid, edge in edge_type.iteritems() if
+    colors[1] = [vid for vid, edge in edge_type.items() if
                  edge == '+' and g.scale(vid) == max_scale]
     colors[1].insert(0, tree_root)
 

@@ -15,12 +15,12 @@ from  openalea.plantgl.all import (Vector3, Point3Array, Polyline, Translation,
 from random import randint, uniform
 from math import degrees, radians, sin, pi, atan2
 import random
-from markov import Markov
+from .markov import Markov
 
 debug = 0
 
 
-class Tree(object):
+class Tree:
     """
     Tree data structure
     """
@@ -76,9 +76,10 @@ class Tree(object):
 
 ##############################################################################
 
-class Axis(object):
+class Axis:
     def __init__(self, parent, offset, nodes,
-                 total_length, length, radius, curvature, transform):
+                 total_length, length, radius, 
+                 curvature, transform):
         self.parent = parent
         self.offset = offset
         self.nodes = nodes
@@ -166,7 +167,7 @@ class Axis(object):
 
 ##############################################################################
 
-class Branching(object):
+class Branching:
     def __init__(self, axis_id, node_offset, nb_branch):
         self.axis_id = axis_id
         self.offset = node_offset
@@ -180,7 +181,7 @@ class Branching(object):
 
 ##############################################################################
 
-class Leaf(object):
+class Leaf:
     def __init__(self, point, matrix, leaf_scale, leaf_scale_x):
         self.point = point
         self.matrix = matrix
@@ -205,7 +206,7 @@ class Leaf(object):
 
 ##############################################################################
 
-class Weber_Penn(object):
+class Weber_Penn:
     def __init__(self, param):
         """
         Base Class of Weber & Penn Tree Simulator.
@@ -635,7 +636,7 @@ class Markov_Laws(Weber_Laws):
     def get_branches(self, order, nb_nodes, branching=None):
         assert nb_nodes > 0
         m = Markov(self.p0, self.p1)
-        b = [m() for i in xrange(nb_nodes)]
+        b = [m() for i in range(nb_nodes)]
         b[0] = 0
         b[-1] = 0
         
@@ -683,7 +684,7 @@ class Poly(Polyline):
 
         # print "pt1:", pts[-1], "pt2:", self[len(self)-1]
         # print n, len(pts), len(self)
-        map(lambda x: x.normalize(), tgts)
+        _norm_in_place = [tgt.normalize() for tgt in tgts]
         return pts, tgts
 
 
@@ -747,7 +748,7 @@ def shape_ratio(envelop_type, ratio):
 #  3. Growing MTG
 
 
-class TreeParameter(object):
+class TreeParameter:
     def __init__(self, shape_id, base_size, scale, order, ratio, ratio_power,
                  lobes, flare, base_split, n_length,
                  n_seg_split, n_split_angle, n_down_angle,
