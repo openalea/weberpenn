@@ -13,7 +13,7 @@ An extension of the Weber and Penn model
 Documentation
 =============
 
-[...]
+.. todo:: Documentation to complete
 
 
 =================================================
@@ -27,27 +27,14 @@ Follow official website instruction to install miniconda :
 
 http://conda.pydata.org/miniconda.html
 
-1. Install conda-build if not already installed
-...............................................
 
-.. code:: shell
-
-    conda install conda-build
-
-2. Create virtual environment and activate it
+1. Create a conda environment and activate it
 .............................................
 
 .. code:: shell
 
-    conda create --name weberpenn python
-    source activate weberpenn
-
-3. Install the openalea.plantgl package
-................................................
-
-.. code:: shell
-
-    conda install -c openalea/label/unstable -c openalea vplants.plantgl openalea.visualea openalea.mtg
+    conda create --name weberpenn openalea.weberpenn -c conda-forge -c openalea3
+    conda activate weberpenn
 
 (Optional) Install several package managing tools :
 
@@ -58,4 +45,4 @@ http://conda.pydata.org/miniconda.html
 Authors
 -------
 
-* Christophe    Pradal
+* Christophe Pradal
