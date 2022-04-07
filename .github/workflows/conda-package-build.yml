@@ -19,9 +19,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build and Publish
-      uses: openalea/action-build-publish-anaconda@0.1.0
+      uses: openalea/action-build-publish-anaconda@0.1.1
       with:
         conda: conda
         python: ${{ matrix.python-minor-version }}
         channels: openalea3, conda-forge
         token: ${{ secrets.ANACONDA_TOKEN }}
+        label: main
