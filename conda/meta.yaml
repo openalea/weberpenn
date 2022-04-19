@@ -8,12 +8,13 @@ source:
   path: ..
 
 build:
+  noarch: python
   preserve_egg_dir: True
-  number: 0
-  script: python setup.py install
+  number: 1
+  script: python setup.py install install --single-version-externally-managed --record=record.txt
 
 requirements:
-  host:
+  build:
     - python {{PY_VER}}
     - setuptools
     - openalea.deploy
@@ -27,6 +28,6 @@ test:
     - openalea.weberpenn
 
 about:
-  home: http://github.com/openalea/weberpenn
+  home: {{ data.get('url') }}
   license: Cecill-C License
   summary: An extension of the Weber and Penn model.
