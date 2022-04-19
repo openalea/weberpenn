@@ -27,7 +27,7 @@ if __name__ == '__main__':
           url=url,
           license=license,
 
-          namespace_packages=[namespace],
+          #namespace_packages=[namespace],
 
           # Packages
           packages=packages,
