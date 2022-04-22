@@ -10,8 +10,8 @@ source:
 build:
   noarch: python
   preserve_egg_dir: True
-  number: 1
-  script: python setup.py install install --single-version-externally-managed --record=record.txt
+  number: 2
+  script: {{PYTHON}} setup.py install #--single-version-externally-managed --record=record.txt
 
 requirements:
   build:
@@ -20,6 +20,7 @@ requirements:
     - openalea.deploy
 
   run:
+    - python {{PY_VER}}
     - openalea.plantgl
     - openalea.mtg
 
@@ -30,4 +31,4 @@ test:
 about:
   home: {{ data.get('url') }}
   license: Cecill-C License
-  summary: An extension of the Weber and Penn model.
+  summary: An OpenAlea variation on the Weber and Penn model.
