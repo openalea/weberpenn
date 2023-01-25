@@ -118,7 +118,7 @@ class GeomEngine:
         leaves = server.leaves()
         leaf = self.leaf
         # map( lambda x: scene.add(self.leaf_shape(x,color,leaf)), leaves )
-        new_leaves = [self.leaf_shape(x, color, leaf) for leaf in leaves]
+        new_leaves = [self.leaf_shape(l, color, leaf) for l in leaves]
         self._shapes.extend(new_leaves)
 
     def leaf_shape(self, leaf, color, shape):

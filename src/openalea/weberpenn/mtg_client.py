@@ -268,7 +268,7 @@ class Weber_MTG(Weber_Laws):
 
         root = next(g.roots_iter(scale=2))
 
-        min_length = min([f.length for f in frames.values() if
+        min_length = min([f.length for f in list(frames.values()) if
                           f.length and f.length > 0])
         for vid in pre_order_turtle(g, root, p):
             down = frames[vid].down
@@ -333,7 +333,7 @@ def create_mtg_with_axes(g):
 
     edge_type = g.property('edge_type')
     colors[2] = g.vertices(scale=max_scale)
-    colors[1] = [vid for vid, edge in edge_type.items() if
+    colors[1] = [vid for vid, edge in list(edge_type.items()) if
                  edge == '+' and g.scale(vid) == max_scale]
     colors[1].insert(0, tree_root)
 
