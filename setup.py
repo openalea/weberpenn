@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 import os, sys
 from os.path import join as pj
 
@@ -13,9 +13,9 @@ authors_email = 'christophe.pradal@cirad.fr'
 url = 'https://github.com/openalea/weberpenn'
 license='Cecill-C'
 
-version = '2.1.0'
+version = '2.2.0'
 namespace = 'openalea'
-packages=find_packages('src')
+packages=find_namespace_packages(where='src', include=['openalea', 'openalea.*'])
 package_dir={'': 'src'}
 
 if __name__ == '__main__':
@@ -26,8 +26,6 @@ if __name__ == '__main__':
           description=description,
           url=url,
           license=license,
-
-          #namespace_packages=[namespace],
 
           # Packages
           packages=packages,
