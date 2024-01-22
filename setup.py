@@ -13,7 +13,11 @@ authors_email = 'christophe.pradal@cirad.fr'
 url = 'https://github.com/openalea/weberpenn'
 license='Cecill-C'
 
-version = '2.2.0'
+_version = {}
+with open("src/openalea/weberpenn/version.py") as fp:
+    exec(fp.read(), _version)
+version = _version["__version__"]
+
 namespace = 'openalea'
 packages=find_namespace_packages(where='src', include=['openalea', 'openalea.*'])
 package_dir={'': 'src'}
