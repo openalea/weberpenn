@@ -27,7 +27,7 @@ class global_parameters(Node):
         
         Node.__init__(self)
 
-        shape_ids= self.shapes.keys()
+        shape_ids= list(self.shapes.keys())
         shape_ids.sort()
         
         inputs=[ {'interface': IEnumStr(shape_ids), 'name': 'shape_id', 'value': '0 - Conical'}, 
@@ -48,21 +48,22 @@ class global_parameters(Node):
         self.add_output(name='trunk_params')
 
 
-    def __call__(self, (shape_id, 
-                       base_size, 
-                       scale, 
-                       scale_variance, 
-                       order, 
-                       ratio, 
-                       ratio_power, 
-                       leaves, 
-                       leaf_scale, 
-                       leaf_scale_x, 
-                       lobes, 
-                       lobes_variance, 
-                       flare, 
-                       base_split)):
+    def __call__(self, params):
         "Build trunk and global parameters."
+        (shape_id, 
+         base_size, 
+         scale, 
+         scale_variance, 
+         order, 
+         ratio, 
+         ratio_power, 
+         leaves, 
+         leaf_scale, 
+         leaf_scale_x, 
+         lobes, 
+         lobes_variance, 
+         flare, 
+         base_split) = params
         shape_id = self.shapes[shape_id]
         
         return dict((('shape_id', shape_id), 
@@ -178,13 +179,17 @@ class Species(Node):
 
     def __init__( self ):
         Node.__init__(self)
-        _species = self.trees.keys()
+        _species = list(self.trees.keys())
         _species.sort()
         
-        self.add_input(name='species', interface=IEnumStr(_species), value = 'Black Tupelo' )
+        self.add_input(
+            name='species', 
+            interface=IEnumStr(_species), 
+            value = 'Black Tupelo' )
         self.add_output(name='trunk_params')
         
-    def __call__( self, (t,) ):
+    def __call__( self, params ):
+        t, = params
         if t:
             return self.trees[t](),
 
