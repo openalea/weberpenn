@@ -19,7 +19,7 @@ with open("src/openalea/weberpenn/version.py") as fp:
 version = _version["__version__"]
 
 namespace = 'openalea'
-packages=find_namespace_packages(where='src', include=['openalea', 'openalea.*'])
+packages=find_namespace_packages(where='src', include=['openalea.*'])
 package_dir={'': 'src'}
 
 if __name__ == '__main__':
