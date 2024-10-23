@@ -3,7 +3,7 @@
   
   Author: Christophe Pradal (christophe.pradal@cirad.fr)
 """
-
+import numpy as np
 from openalea.plantgl.all import (BezierPatch, Discretizer, Viewer, Scene,
                                   Shape, Material,
                                   Color3,
@@ -202,3 +202,19 @@ class GeomEngine:
                 sweep = Extrusion(Polyline([p1, p2]), self.section, local_r)
                 sweeps.append(Shape(sweep, self.color))
             return sweeps
+
+    def polylines(self):
+        """ Return a list of polylines as np array"""
+        
+        server = self.server
+
+        max_order = server.max_order
+
+        polylines = []
+        for order in range(max_order):
+            axes = server.axes(order)
+            for axis_id in axes:
+                polyline = server.polyline(axis_id)
+                polylines.append(np.array(polyline.pointList))
+        
+        return polylines
