@@ -42,7 +42,7 @@ requirements:
 test:
   requires:
     - pytest
-    - openalea.grapheditor
+    - openalea.mtg
   imports:
     - openalea.weberpenn
   source_files:
