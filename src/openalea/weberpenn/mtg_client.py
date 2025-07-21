@@ -234,7 +234,7 @@ class Weber_MTG(Weber_Laws):
         else:
             # pid is the parent axis to vid
             pid = g.parent(vid)
-            root_id = next(g.components(vid))
+            root_id = next(iter(g.components(vid)))
             offset_id = g.parent(root_id)
             parent_len = frames[pid].length
             parent_radius = frames[pid].radius

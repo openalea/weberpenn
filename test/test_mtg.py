@@ -1,9 +1,6 @@
 from openalea.mtg import *
 from openalea.weberpenn.mtg_client import *
-import warnings
-
-try:
-    from openalea.grapheditor import dataflowview
+from openalea.weberpenn.tree_client import Quaking_Aspen
 
 
 
