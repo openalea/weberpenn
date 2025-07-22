@@ -95,3 +95,6 @@ doc/_dvlpt/
 .vscode
 
 .DS_Store
+
+# baugetfa
+_build

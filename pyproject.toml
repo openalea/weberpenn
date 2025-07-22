@@ -1,0 +1,81 @@
+# FB 2025-04-14: based on ADEL and hydroshoot, sphinx pkg in environment.yml
+[build-system]
+requires = [
+    "setuptools",
+    "setuptools_scm",
+  ]
+build-backend = "setuptools.build_meta"
+
+# allow openalea to be a namespace package
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools]
+include-package-data = false # force explicit declaration of data (disable automatic inclusion)
+
+# enable dynamic versioning based on git tags
+[tool.setuptools_scm]
+# can be empty if no extra settings are needed, presence enables setuptools-scm
+
+[project]
+name = "openalea.weberpenn"
+authors = [
+  { name = "Christophe Pradal", email = "christophe.pradal@cirad.fr"},
+]
+description = "Implementation of the tree model published by Weber and Penn."
+readme = "README.md"
+license = "CECILL-C"
+license-files = ["LICEN[CS]E*"]
+requires-python = ">=3.10"
+keywords=['visual programming', 'openalea', 'Scientific Workflows']
+classifiers = [
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering",
+]
+dynamic = ["version"]
+
+dependencies = [
+    "setuptools",
+]
+
+
+# section specific to conda-only distributed package (not used by pip yet)
+[tool.conda.environment]
+channels = [
+  "openalea3",
+  "conda-forge"
+]
+dependencies = [
+    "openalea.plantgl",
+    "openalea.mtg",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+doc = [
+  "sphinx-favicon",
+  "sphinx-rtd-theme",
+  "pydata-sphinx-theme",
+  "myst-parser",
+  "nbsphinx",
+  "sphinx-copybutton",
+]
+
+[project.urls]
+Homepage = "https://openalea.rtfd.io/"
+"Bug Tracker" = "https://github.com/weberpenn/visualea/issues"
+Discussions = "https://github.com/weberpenn/visualea/discussions"
+Changelog = "https://github.com/weberpenn/visualea/releases"
+
+[tool.setuptools.package-data]
+'openalea.visualea.resources' = ['*.png']
+
+[project.entry-points."wralea"]
+"weberpenn" = "openalea.weberpenn.wralea"
+"demo" = "openalea.weberpenn.demo"
