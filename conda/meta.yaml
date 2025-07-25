@@ -42,7 +42,7 @@ requirements:
 
 test:
   requires:
-    {% for dep in deps + conda_deps + test_deps %}
+    {% for dep in test_deps %}
     - {{ dep }}
     {% endfor %}
   imports:
