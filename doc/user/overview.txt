@@ -1,1 +1,3 @@
-to be done
+An extension of the Weber and Penn model
+
+  .. image:: _static/weberpenn_demo.png
