@@ -5,8 +5,9 @@
 
 .. module:: WeberPenn
 
-VPlants Weberpenn documentation
+OpenAlea Weberpenn documentation
 ###############################
+
 
 Module description
 ==================
@@ -26,19 +27,7 @@ Module description
 Documentation
 =============
 
-.. toctree::
-    :maxdepth: 1
-
-    User Guide<user/index.rst>   
-    Reference Guide<user/autosum.rst>
-
-- A `PDF <../latex/main.pdf>`_ version of |WeberPenn| documentation is 
-  available.
-
-.. seealso::
-
-   More documentation can be found on the
-   `openalea <http://openalea.gforge.inria.fr>`__ wiki.
+See a tutorial here `ref` https://openalea.readthedocs.io/en/latest/tutorials/visualea/weberpenn.html
 
 Authors
 =======
