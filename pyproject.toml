@@ -15,7 +15,10 @@ include-package-data = false # force explicit declaration of data (disable autom
 
 # enable dynamic versioning based on git tags
 [tool.setuptools_scm]
-# can be empty if no extra settings are needed, presence enables setuptools-scm
+# Format version to ease alignment with conda/meta.yaml tag-based versioning
+fallback_version = "2.2.0.dev0"
+version_scheme = "guess-next-dev"
+local_scheme = "no-local-version"
 
 [project]
 name = "openalea.weberpenn"
@@ -36,6 +39,7 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Topic :: Scientific/Engineering",
 ]
 dynamic = ["version"]
